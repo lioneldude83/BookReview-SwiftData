@@ -27,24 +27,24 @@ Another alternative way of structuring NavigationSplitView:
 
 add a @State private var selectedItem: Item? = nil
 
-NavigationSplitView {
-    List(items, selection: $selectedItem) { item in
-        NavigationLink(value: item) {
-            ListRowView(variable: item)
-                
+    NavigationSplitView {
+        List(items, selection: $selectedItem) { item in
+            NavigationLink(value: item) {
+                ListRowView(variable: item)
+                    
+            }
+        }
+        .navigationTitle("Item")
+        .navigationDestination(for: Item.self) { item in
+            DetailView(variable: item)
+        }
+    } detail: {
+        if let item = selectedItem {
+            DetailView(variable: item)
+        } else {
+            Text("Select an item")
         }
     }
-    .navigationTitle("Item")
-    .navigationDestination(for: Item.self) { item in
-        DetailView(variable: item)
-    }
-} detail: {
-    if let item = selectedItem {
-        DetailView(variable: item)
-    } else {
-        Text("Select an item")
-    }
-}
 
 
 Added Widget functionality to display systemMedium and systemLarge Widget families. Fetch limit for SwiftData set to 3 for systemMedium, else set to 6 for systemLarge.
